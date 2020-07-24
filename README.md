@@ -15,6 +15,10 @@ SnippetCoder is the platform to learn about the latest technologies that will he
 <Br>
 <Br>
 <Br>
+  
+If you like my work , you can support me by donating through PayPal:
+http://www.paypal.me/iSharpeners
+
 <Br>
 <Br>
 <Br>
