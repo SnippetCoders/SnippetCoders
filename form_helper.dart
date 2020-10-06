@@ -1,8 +1,4 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_sqlite/models/data_model.dart';
-import 'package:image_picker/image_picker.dart';
 
 class FormHelper {
   static Widget textInput(
@@ -11,13 +7,20 @@ class FormHelper {
     Function onChanged, {
     bool isTextArea = false,
     bool isNumberInput = false,
+    obscureText: false,
     Function onValidate,
     Widget prefixIcon,
     Widget suffixIcon,
   }) {
     return TextFormField(
       initialValue: initialValue != null ? initialValue.toString() : "",
-      decoration: fieldDecoration(context, "", ""),
+      decoration: fieldDecoration(
+        context,
+        "",
+        "",
+        suffixIcon: suffixIcon,
+      ),
+      obscureText: obscureText,
       maxLines: !isTextArea ? 1 : 3,
       keyboardType: isNumberInput ? TextInputType.number : TextInputType.text,
       onChanged: (String value) {
@@ -57,43 +60,6 @@ class FormHelper {
     );
   }
 
-  static Widget selectDropdown(
-    BuildContext context,
-    Object initialValue,
-    dynamic data,
-    Function onChanged, {
-    Function onValidate,
-  }) {
-    return Container(
-      height: 75,
-      padding: EdgeInsets.only(top: 5),
-      child: new DropdownButtonFormField<String>(
-        hint: new Text("Select"),
-        value: initialValue != null ? initialValue.toString() : null,
-        isDense: true,
-        onChanged: (String newValue) {
-          FocusScope.of(context).requestFocus(new FocusNode());
-          onChanged(newValue);
-        },
-        validator: (value) {
-          return onValidate(value);
-        },
-        decoration: fieldDecoration(context, "", ""),
-        items: data.map<DropdownMenuItem<String>>(
-          (CategoryModel data) {
-            return DropdownMenuItem<String>(
-              value: data.categoryId.toString(),
-              child: new Text(
-                data.categoryName,
-                style: new TextStyle(color: Colors.black),
-              ),
-            );
-          },
-        ).toList(),
-      ),
-    );
-  }
-
   static Widget fieldLabel(String labelName) {
     return new Padding(
       padding: EdgeInsets.fromLTRB(0, 5, 0, 10),
@@ -107,61 +73,53 @@ class FormHelper {
     );
   }
 
-  static Widget picPicker(String fileName, Function onFilePicked) {
-    Future<PickedFile> _imageFile;
-    ImagePicker _picker = new ImagePicker();
-
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: 35.0,
-              width: 35.0,
-              child: new IconButton(
-                padding: EdgeInsets.all(0),
-                icon: Icon(Icons.image, size: 35.0),
-                onPressed: () {
-                  _imageFile = _picker.getImage(source: ImageSource.gallery);
-                  _imageFile.then((file) async {
-                    onFilePicked(file);
-                  });
-                },
-              ),
+  static Widget saveButton(String buttonText, Function onTap,
+      {String color, String textColor, bool fullWidth}) {
+    return Container(
+      height: 50.0,
+      width: 150,
+      child: GestureDetector(
+        onTap: () {
+          onTap();
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Colors.redAccent,
+              style: BorderStyle.solid,
+              width: 1.0,
             ),
-            SizedBox(
-              height: 35.0,
-              width: 35.0,
-              child: new IconButton(
-                padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                icon: Icon(Icons.camera, size: 35.0),
-                onPressed: () {
-                  _imageFile = _picker.getImage(source: ImageSource.camera);
-                  _imageFile.then((file) async {
-                    onFilePicked(file);
-                  });
-                },
+            color: Colors.redAccent,
+            borderRadius: BorderRadius.circular(30.0),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Center(
+                child: Text(
+                  buttonText,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 1,
+                  ),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-        fileName != null
-            ? Image.file(
-                File(fileName),
-                width: 300,
-                height: 300,
-              )
-            : new Container()
-      ],
+      ),
     );
   }
 
-  static void showMessage(BuildContext context, String title, String message,
-      String buttonText, Function onPressed,
-      {bool isConfirmationDialog = false,
-      String buttonText2 = "",
-      Function onPressed2}) {
+  static void showMessage(
+    BuildContext context,
+    String title,
+    String message,
+    String buttonText,
+    Function onPressed,
+  ) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -174,16 +132,7 @@ class FormHelper {
                 return onPressed();
               },
               child: new Text(buttonText),
-            ),
-            Visibility(
-              visible: isConfirmationDialog,
-              child: new FlatButton(
-                onPressed: () {
-                  return onPressed2();
-                },
-                child: new Text(buttonText2),
-              ),
-            ),
+            )
           ],
         );
       },
