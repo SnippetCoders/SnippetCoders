@@ -1,4 +1,4 @@
-<img align="right" width="500" height="500" src="https://github.com/SnippetCoders/SnippetCoder/blob/master/git-bg.jpg">
+<img align="right" width="500" height="500" src="https://github.com/SnippetCoders/SnippetCoder/blob/master/git-transparent-bg.png">
 
 
 # SnippetCoder
