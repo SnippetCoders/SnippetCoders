@@ -1,0 +1,710 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Grocery App",
+    "description": "Grocery App - Flutter/NodeJS Series",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:4000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Users",
+      "description": "Users API"
+    },
+    {
+      "name": "Product",
+      "description": "Products API"
+    },
+    {
+      "name": "Category",
+      "description": "Category API"
+    },
+    {
+      "name": "Slider",
+      "description": "Slider API"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/register": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Register API",
+        "parameters": [
+          {
+            "name": "RegisterModel",
+            "in": "body",
+            "description": "User Registration",
+            "required": true,
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/RegisterModel"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ServiceResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/login": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Login API",
+        "parameters": [
+          {
+            "name": "LoginModel",
+            "in": "body",
+            "description": "User Login",
+            "required": true,
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/LoginModel"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ServiceResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/category": {
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Get all Categories",
+        "parameters": [
+          {
+            "name": "categoryName",
+            "in": "query",
+            "required": false,
+            "description": "Category Name",
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "Page Number",
+            "type": "integer",
+            "default": 1
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "description": "Page Size",
+            "type": "integer",
+            "default": 10
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ServiceResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Create Category API",
+        "parameters": [
+          {
+            "name": "categoryName",
+            "in": "formData",
+            "description": "Category Name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "categoryDescription",
+            "in": "formData",
+            "description": "Category Description",
+            "type": "string"
+          },
+          {
+            "name": "categoryImage",
+            "in": "formData",
+            "description": "Category Image",
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ServiceResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/slider": {
+      "get": {
+        "tags": [
+          "Slider"
+        ],
+        "summary": "Get all Sliders",
+        "parameters": [
+          {
+            "name": "sliderName",
+            "in": "query",
+            "required": false,
+            "description": "Slider Name",
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "Page Number",
+            "type": "integer",
+            "default": 1
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "description": "Page Size",
+            "type": "integer",
+            "default": 10
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ServiceResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Slider"
+        ],
+        "summary": "Create Slider API",
+        "parameters": [
+          {
+            "name": "sliderName",
+            "in": "formData",
+            "description": "Slider Name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "sliderDescription",
+            "in": "formData",
+            "description": "Slider Description",
+            "type": "string"
+          },
+          {
+            "name": "sliderImage",
+            "in": "formData",
+            "description": "Slider Image",
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ServiceResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/slider/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "Slider Id",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Slider"
+        ],
+        "summary": "Slider Details based on Slider Id",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ServiceResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Slider"
+        ],
+        "summary": "Update Slider API",
+        "parameters": [
+          {
+            "name": "sliderName",
+            "in": "formData",
+            "description": "Slider Name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "sliderDescription",
+            "in": "formData",
+            "description": "Slider Description",
+            "type": "string"
+          },
+          {
+            "name": "sliderImage",
+            "in": "formData",
+            "description": "Slider Image",
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ServiceResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Slider"
+        ],
+        "summary": "Delete Slider API",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ServiceResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/category/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "Category Id",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Category Details based on Category Id",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ServiceResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Update Category API",
+        "parameters": [
+          {
+            "name": "categoryName",
+            "in": "formData",
+            "description": "Category Name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "categoryDescription",
+            "in": "formData",
+            "description": "Category Description",
+            "type": "string"
+          },
+          {
+            "name": "categoryImage",
+            "in": "formData",
+            "description": "Category Image",
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ServiceResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Delete Category API",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ServiceResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/product": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Get all products",
+        "parameters": [
+          {
+            "name": "productName",
+            "in": "query",
+            "required": false,
+            "description": "Product Name",
+            "type": "string"
+          },
+          {
+            "name": "categoryId",
+            "in": "query",
+            "required": false,
+            "description": "Category Id",
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "Page Number",
+            "type": "integer",
+            "default": 1
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "description": "Page Size",
+            "type": "integer",
+            "default": 10
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "description": "Sort By",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ServiceResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Create Product API",
+        "parameters": [
+          {
+            "name": "productName",
+            "in": "formData",
+            "description": "Product Name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "category",
+            "in": "formData",
+            "description": "Category",
+            "type": "string"
+          },
+          {
+            "name": "productShortDescription",
+            "in": "formData",
+            "description": "Product Short Description",
+            "type": "string"
+          },
+          {
+            "name": "productDescription",
+            "in": "formData",
+            "description": "Product Description",
+            "type": "string"
+          },
+          {
+            "name": "productPrice",
+            "in": "formData",
+            "description": "Product Price",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "productSalePrice",
+            "in": "formData",
+            "description": "Product Sale Price",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "productSKU",
+            "in": "formData",
+            "description": "Product SKU",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "productType",
+            "in": "formData",
+            "description": "Product Type",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "stockStatus",
+            "in": "formData",
+            "description": "Stock Status",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "productImage",
+            "in": "formData",
+            "description": "Product Image",
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ServiceResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/product/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "Product Id",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Product Details based on Product Id",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ServiceResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Update Product API",
+        "parameters": [
+          {
+            "name": "productName",
+            "in": "formData",
+            "description": "Product Name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "productDescription",
+            "in": "formData",
+            "description": "Product Description",
+            "type": "string"
+          },
+          {
+            "name": "productPrice",
+            "in": "formData",
+            "description": "Product Price",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "productImage",
+            "in": "formData",
+            "description": "Product Image",
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ServiceResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Product"
+        ],
+        "summary": "Delete Product API",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ServiceResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Category": {
+      "required": [
+        "categoryName",
+        "_id"
+      ],
+      "properties": {
+        "_id": {
+          "type": "integer",
+          "uniqueItems": true
+        },
+        "categoryName": {
+          "type": "string"
+        },
+        "categoryDescription": {
+          "type": "string"
+        },
+        "categoryImage": {
+          "type": "string"
+        }
+      }
+    },
+    "Product": {
+      "required": [
+        "productName",
+        "_id",
+        "productPrice"
+      ],
+      "properties": {
+        "_id": {
+          "type": "integer",
+          "uniqueItems": true
+        },
+        "productName": {
+          "type": "string"
+        },
+        "productDescription": {
+          "type": "string"
+        },
+        "productPrice": {
+          "type": "number"
+        },
+        "productImage": {
+          "type": "string"
+        }
+      }
+    },
+    "ServiceResponse": {
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Category"
+          }
+        }
+      }
+    },
+    "RegisterModel": {
+      "required": [
+        "fullName",
+        "email",
+        "password"
+      ],
+      "properties": {
+        "fullName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "LoginModel": {
+      "required": [
+        "email",
+        "password"
+      ],
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
